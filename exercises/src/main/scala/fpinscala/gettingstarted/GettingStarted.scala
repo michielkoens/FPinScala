@@ -180,6 +180,13 @@ object PolymorphicFunctions {
 
   // Exercise 5: Implement `compose`
 
-  def compose[A,B,C](f: B => C, g: A => B): A => C =
-    ???
+  def compose[A,B,C](f: B => C, g: A => B): A => C = a => f(g(a))
+
+  // To test
+  def main(args: Array[String]): Unit = {
+    val f: Int => Int = compose[Int,Int,Int](_ + 2, _ * 5)
+    println("Expected: 17 (=3*5+2)")
+    println("Actual:   %d".format(f(3)))
+  }
+
 }

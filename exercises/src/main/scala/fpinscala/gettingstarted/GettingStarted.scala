@@ -160,13 +160,13 @@ object PolymorphicFunctions {
   // Note that `=>` associates to the right, so we could
   // write the return type as `A => B => C`
   def curry[A,B,C](f: (A, B) => C): A => (B => C) =
-    ???
+    a => (b => f(a,b))
 
   // NB: The `Function2` trait has a `curried` method already
 
   // Exercise 4: Implement `uncurry`
   def uncurry[A,B,C](f: A => B => C): (A, B) => C =
-    ???
+    (a,b) => f(a)(b)
 
   /*
   NB: There is a method on the `Function` object in the standard library,
@@ -187,6 +187,16 @@ object PolymorphicFunctions {
     val f: Int => Int = compose[Int,Int,Int](_ + 2, _ * 5)
     println("Expected: 17 (=3*5+2)")
     println("Actual:   %d".format(f(3)))
+
+    val g: Int => Int => Int = a => b => a + b
+    val g1 = uncurry(g)
+    val h: (Int, Int) => Int = (a, b) => a + b
+    val h1 = curry(h)
+    val g2 = curry(uncurry(g))
+    val h2 = uncurry(curry(h))
+
+    println("Expected: 4, 4, 4, 4, 4, 4")
+    println("Actual:   %d, %d, %d, %d, %d, %d".format( g(1)(3), h(1,3), h1(1)(3), g1(1,3), g2(1)(3), h2(1,3)))
   }
 
 }

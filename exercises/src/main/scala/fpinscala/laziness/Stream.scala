@@ -143,8 +143,12 @@ object TestStream {
     val se : Stream[Int] = empty[Int]
     val si1 : Stream[Int] = constant(1)
     val si2 : Stream[Int] = constant(2)
+
     println(s1)
     println(s1.toList)
+
+    println("\n")
+
     println(s1.drop(2).toList)
     println(s1.drop(6).toList)
     println(s1.take(3).toList)
